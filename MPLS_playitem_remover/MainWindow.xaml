@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MPLS_playitem_remover"
         mc:Ignorable="d"
-        Title="MPLS playitem remover" Height="270" Width="230">
+        Title="MPLS playitem remover" Height="270" Width="230" Closing="onWindowClosing" SourceInitialized="onWindowSourceInitialized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>

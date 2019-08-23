@@ -89,6 +89,35 @@
         Next
         Return output
     End Function
+
+    Private Sub onWindowClosing(sender As Window, e As ComponentModel.CancelEventArgs)
+        Dim configText As String = String.Empty
+        configText &= sender.Top & Environment.NewLine
+        configText &= sender.Left & Environment.NewLine
+        configText &= sender.RenderSize.Height & Environment.NewLine
+        configText &= sender.RenderSize.Width
+        Try
+            My.Computer.FileSystem.WriteAllText("config", configText, False)
+        Catch ex As Exception
+            'Do nothing
+        End Try
+    End Sub
+
+    Private Sub onWindowSourceInitialized(sender As Object, e As EventArgs)
+        If My.Computer.FileSystem.FileExists("config") Then
+            Dim settings = My.Computer.FileSystem.ReadAllText("config").Split(Environment.NewLine)
+            If settings.Length = 4 Then
+                Try
+                    sender.Top = Double.Parse(settings(0))
+                    sender.Left = Double.Parse(settings(1))
+                    sender.Height = Double.Parse(settings(2))
+                    sender.Width = Double.Parse(settings(3))
+                Catch ex As Exception
+                    'Do nothing
+                End Try
+            End If
+        End If
+    End Sub
 End Class
 
 Class Playlist_item
